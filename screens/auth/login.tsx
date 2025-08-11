@@ -10,7 +10,6 @@ import { useRouter } from "expo-router";
 import { LogIn } from "lucide-react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import tw from "twrnc";
 
 export default () => {
@@ -25,17 +24,24 @@ export default () => {
 
   const router = useRouter();
 
-  const handleSignUp = async () => {
+  const handleEmailTextChange = (text: string) => {
+    setEmail(text);
+    validateEmail(text, setEmailError);
+  };
+
+  const handlePasswordTextChange = (text: string) => {
+    setPassword(text);
+    validatePassword(text, setPasswordError);
+  };
+
+  const handleLogin = async () => {
     //Enable loading state
     setLoading(true);
 
     //create a new user
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-      options: {
-        emailRedirectTo: "threads://auth/confirm",
-      },
     });
 
     //handling user credentials error
@@ -46,11 +52,10 @@ export default () => {
       return;
     }
 
-    //navigating to login screen
-    router.push("/(auth)/login");
-
     //Disable loading state
     setLoading(false);
+
+    router.push("/(tabs)/home");
   };
 
   //hide auth alert after 2 seconds
@@ -58,17 +63,6 @@ export default () => {
     setTimeout(() => {
       setAlertError("");
     }, 2000);
-  };
-
-  //handling
-  const handleEmailTextChange = (text: string) => {
-    setEmail(text);
-    validateEmail(text, setEmailError);
-  };
-
-  const handlePasswordTextChange = (text: string) => {
-    setPassword(text);
-    validatePassword(text, setPasswordError);
   };
 
   return (
@@ -92,8 +86,8 @@ export default () => {
           buttonIcon={LogIn}
           isDisabled={isDisabled}
           loading={loading}
-          onPress={handleSignUp}
-          title="signup"
+          onPress={handleLogin}
+          title="Login"
         />
       </Box>
       {alertError && <AuthAlert errorMessage={alertError} />}
