@@ -1,7 +1,7 @@
 import { Input, InputField } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
-import { View } from "react-native";
 import tw from "twrnc";
+import { Box } from "./ui/box";
 
 interface PasswordTextFieldProps {
   password: string;
@@ -15,7 +15,7 @@ export const PasswordTextField = ({
   passwordError,
 }: PasswordTextFieldProps) => {
   return (
-    <View>
+    <Box>
       <Input variant="outline" size="xl" style={tw`border-2`}>
         <InputField
           placeholder="Enter Your Password"
@@ -29,6 +29,6 @@ export const PasswordTextField = ({
           {passwordError}
         </Text>
       )}
-    </View>
+    </Box>
   );
 };

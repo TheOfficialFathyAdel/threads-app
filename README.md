@@ -5,4 +5,10 @@ git reset --hard <hascode>
 git clean -fd
 CreateSupabaseProjectWithUsEastVirginia
 npx expo install @supabase/supabase-js @react-native-async-storage/async-storage @rneui/themed react-native-url-polyfill
-Set up your login component
+npm install prisma --save-dev
+npx prisma init
+npm install @prisma/client
+npx prisma generate
+DATABASE_URL=ConnectionOrmTypeAndPasswordLetters
+npx prisma db push
+npx prisma db pull

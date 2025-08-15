@@ -1,3 +1,3 @@
-import Confirm from "@/screens/auth/login";
+import Confirm from "@/screens/auth/confirm";
 
 export default () => <Confirm />;

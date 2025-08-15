@@ -37,3 +37,7 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+/lib/generated/prisma
+
+/lib/generated/prisma

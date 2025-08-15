@@ -1,8 +1,11 @@
+import { Box } from "@/components/ui/box";
+import { Text } from "@/components/ui/text";
 import * as Linking from "expo-linking";
 import { useEffect } from "react";
+import tw from "twrnc";
 import { supabase } from "../../lib/supabase";
 
-export default () => {
+export default function Confirm() {
   useEffect(() => {
     const handleDeepLink = async (event: any) => {
       const url = event.url;
@@ -16,12 +19,6 @@ export default () => {
           access_token: queryParams.access_token,
           refresh_token: queryParams.refresh_token ?? "",
         });
-
-        if (error) {
-          console.log(error.message);
-        } else {
-          console.log("User logged in successfully");
-        }
       }
     };
 
@@ -30,8 +27,17 @@ export default () => {
     });
 
     const sub = Linking.addEventListener("url", handleDeepLink);
+
     return () => sub.remove();
   }, []);
 
-  return <></>;
-};
+  return (
+    <Box style={tw`flex-1 bg-white items-center justify-center p-4`}>
+      <Box>
+        <Text style={tw`font-bold text-4xl text-center`}>
+          Check your inbox for email verification
+        </Text>
+      </Box>
+    </Box>
+  );
+}
